@@ -1,3 +1,15 @@
+# MaoPao Project
+
+MaoPao is dashboard for Alcohol meter device.   
+
+
+# Tech Stack
+ - Nuxt 3
+ - Vuetify 3
+ - Bun
+ - TypeScript
+
+
 # Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
