@@ -10,7 +10,10 @@ export default defineEventHandler(async (event) => {
             where: { code },
             data: { name: body.name },
         })
-
+        // 🔁 Clear filter cache
+        const cache = useStorage()
+        await cache.removeItem('device_filters')
+        
         return {
             success: true,
             message: 'Update success',

@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
   const rawPage = parseInt(query.page as string)
   const rawLimit = parseInt(query.limit as string)
-  
+
   const page = Math.max(rawPage || 1, 1)
   const limit = Math.min(rawLimit > 0 ? rawLimit : 10, 100)
 
@@ -17,9 +17,15 @@ export default defineEventHandler(async (event) => {
 
   const sortRaw = (query.sort as string)?.trim() || 'createdAt:desc'
   const [field, direction] = sortRaw.split(':')
+
   const sortField = allowedSortFields.includes(field as any) ? field : 'createdAt'
   const sortOrder = direction?.toLowerCase() === 'asc' ? 'asc' : 'desc'
   const orderBy = { [sortField]: sortOrder } as Record<string, 'asc' | 'desc'>
+
+  // const sortField = sortBy.value[0]?.key || 'createdAt'
+  // const sortOrder = sortBy.value[0]?.order === 'asc' ? 'asc' : 'desc'
+  // const orderBy = { [sortField]: sortOrder } as Record<string, 'asc' | 'desc'>
+  
 
   const where:any = {
     ...(model ? { model: { contains: model, mode: 'insensitive' } } : {}),

@@ -38,7 +38,8 @@ export function useDeviceTable() {
       params: {
         page: page.value,
         limit: itemsPerPage.value,
-        sort: sortBy.value[0]?.key || 'createdAt',
+        // sort: sortBy.value[0]?.key || 'createdAt',
+        sort: sortParam,
         order: sortBy.value[0]?.order || 'desc',
         model: filters.value.model,
         version: filters.value.version,

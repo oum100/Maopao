@@ -106,13 +106,7 @@
         </v-tooltip>
       </template>
       <template #item.createdAt="{ item }">
-        {{ new Date(item.createdAt).toLocaleString('th-TH', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-        }) }}
+        {{ new Date(item.createdAt).toLocaleString('th-TH') }}
       </template>
 
     </v-data-table-server>

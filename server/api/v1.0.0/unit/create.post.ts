@@ -22,5 +22,9 @@ export default defineEventHandler(async (event) => {
     data: { code:parseInt(code), name },
   })
 
+  // 🔁 Clear filter cache
+  const cache = useStorage()
+  await cache.removeItem('device_filters')  
+
   return item
 })

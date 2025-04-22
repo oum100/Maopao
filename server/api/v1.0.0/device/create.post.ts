@@ -1,8 +1,8 @@
 import { H3Event } from "h3";
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/server/utils/prisma'
 import { Device, validateDevice } from "@/models/device";
 
-const prisma = new PrismaClient();
+
 
 export default defineEventHandler(async (event:H3Event) => {
     const body = await readBody(event) || {}

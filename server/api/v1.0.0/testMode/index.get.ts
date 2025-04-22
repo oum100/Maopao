@@ -12,6 +12,11 @@ export default defineEventHandler(async (event) => {
   const name = (query.name as string)?.trim() || ''
   const where:any = name ? { name: { contains: name, mode: 'insensitive' } } : {}
 
+  const allowedSortFields = ['code', 'name', 'createdAt'] // ปรับตามจริง
+  const sortRaw = (query.sort as string)?.trim() || 'createdAt'
+  const directionRaw = (query.order as string)?.trim()?.toLowerCase() === 'asc' ? 'asc' : 'desc'
+  const sortField = allowedSortFields.includes(sortRaw) ? sortRaw : 'createdAt'
+  const orderBy = { [sortField]: directionRaw } as Record<string, 'asc' | 'desc'>
 
   const totalCount = await prisma.testMode.count({ where })
   const totalPages = Math.max(Math.ceil(totalCount / limit), 1)
@@ -21,7 +26,7 @@ export default defineEventHandler(async (event) => {
   const [items, total] = await prisma.$transaction([
     prisma.testMode.findMany({
       where,
-      orderBy: { createdAt: 'desc' },
+      orderBy,
       skip,
       take:limit,
       include:{
