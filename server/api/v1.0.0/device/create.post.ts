@@ -1,5 +1,5 @@
 import { H3Event } from "h3";
-import prisma from "~/server/utils/prisma";
+import prisma from '~/lib/prisma';
 import { Device, validateDevice } from "@/models/device";
 
 export default defineEventHandler(async (event: H3Event) => {

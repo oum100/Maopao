@@ -1,5 +1,5 @@
 import { validateLang } from '~/models/language'
-import prisma from '~/server/utils/prisma'
+import prisma from '~/lib/prisma';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)

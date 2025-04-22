@@ -1,4 +1,4 @@
-import prisma from "~/server/utils/prisma";
+import prisma from '~/lib/prisma';
 
 export default defineEventHandler(async (event) => {
   const code = parseInt(event.context.params!.code);

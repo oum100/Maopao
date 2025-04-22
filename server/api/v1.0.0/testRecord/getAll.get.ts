@@ -1,8 +1,8 @@
 import { H3Event } from "h3";
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/lib/prisma';
 import { TestRecord, validateTestRecord } from "@/models/testrecord";
 
-const prisma = new PrismaClient();
+
 
 export default defineEventHandler(async(event:H3Event) => {
     const result = await prisma.testRecord.findMany()

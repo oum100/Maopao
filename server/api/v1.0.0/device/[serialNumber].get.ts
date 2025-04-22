@@ -1,5 +1,5 @@
 import { defineEventHandler, getQuery, getRouterParam } from 'h3'
-import prisma from '~/server/utils/prisma'
+import prisma from '~/lib/prisma'
 
 export default defineEventHandler(async (event) => {
   const serialNumber = getRouterParam(event, 'serialNumber')

@@ -1,5 +1,6 @@
 import { H3Event } from "h3";
-import prisma from "@/server/utils/prisma";
+// import prisma from "@/server/utils/prisma";
+import prisma from "~/lib/prisma"
 
 //Starting main api finction here.
 export default defineEventHandler(async (event: H3Event) => {

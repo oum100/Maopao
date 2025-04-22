@@ -1,13 +1,10 @@
 import { H3Event } from "h3";
-import { PrismaClient } from "@prisma/client";
+import prisma from '~/lib/prisma';
 import { validateDeviceUpdate } from "@/models/device";
 import { requireParam } from "~/server/utils/requireParam"
 
 // ✅ ใช้ middleware ตรวจ param 'serialNumber'
 const validateSerialNumber = requireParam('serialNumber')
-
-//Creating prisma client instance
-const prisma = new PrismaClient();
 
 //Starting main api finction here.
 export default defineEventHandler(async (event: H3Event) => {

@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { useFetch } from "#app";
+// import { useFetch } from "#app";
 
 
 export function useDeviceTable() {

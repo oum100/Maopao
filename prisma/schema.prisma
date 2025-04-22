@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  // output   = "./server/generated/prisma"
 }
 
 datasource db {
@@ -15,7 +16,7 @@ datasource db {
 
 model User {
   uuid      String   @id @default(uuid()) // Primary Key
-  email     String    @unique
+  email     String   @unique
   password  String
   appKey    String
   appSecret String
@@ -26,25 +27,25 @@ model User {
 
 model Device {
   // id           Int    @id @default(autoincrement())
-  serialNumber String @unique @id
+  serialNumber String @id @unique
   model        String
   version      String
 
-  owner          User? @relation(fields: [ownerUuid], references: [uuid])
-  ownerUuid          String? 
+  owner     User?   @relation(fields: [ownerUuid], references: [uuid])
+  ownerUuid String?
 
-  language      Language? @relation(fields: [languageId], references: [code])
-  languageId    Int?      //@default(1) // default language ID = 1
+  language   Language? @relation(fields: [languageId], references: [code])
+  languageId Int? //@default(1) // default language ID = 1
 
-  unit          Unit? @relation(fields: [unitId], references: [code])
-  unitId        Int?  //@default(0) // default unit ID = 0
+  unit   Unit? @relation(fields: [unitId], references: [code])
+  unitId Int? //@default(0) // default unit ID = 0
 
-  testMode      TestMode? @relation(fields: [testModeId], references: [code])
-  testModeId    Int?      //@default(1) // default test mode ID = 1
+  testMode   TestMode? @relation(fields: [testModeId], references: [code])
+  testModeId Int? //@default(1) // default test mode ID = 1
 
-  records TestRecord[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  records   TestRecord[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
 model TestRecord {
@@ -53,33 +54,33 @@ model TestRecord {
   alcoholValue Float
   dateTime     DateTime
 
-  unit          Unit @relation(fields: [unitId], references: [id])
-  unitId        Int
+  unit   Unit @relation(fields: [unitId], references: [id])
+  unitId Int
 
-  device        Device @relation(fields: [serialNumber], references: [serialNumber])
-  serialNumber      String
+  device       Device @relation(fields: [serialNumber], references: [serialNumber])
+  serialNumber String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Language {
-  id      Int      @id @default(autoincrement())
-  code    Int      @unique
-  name    String
-  devices Device[]
+  id        Int      @id @default(autoincrement())
+  code      Int      @unique
+  name      String
+  devices   Device[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt  
+  updatedAt DateTime @updatedAt
 }
 
 model Unit {
-  id      Int      @id @default(autoincrement())
-  code    Int      @unique
-  name    String
-  devices Device[]
-  records TestRecord[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt  
+  id        Int          @id @default(autoincrement())
+  code      Int          @unique
+  name      String
+  devices   Device[]
+  records   TestRecord[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
 model TestMode {
@@ -89,5 +90,5 @@ model TestMode {
   devices Device[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt  
+  updatedAt DateTime @updatedAt
 }

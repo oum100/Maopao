@@ -1,5 +1,5 @@
 import { defineEventHandler, getQuery } from 'h3'
-import prisma from '~/server/utils/prisma'
+import prisma from '~/lib/prisma';
 
 const allowedSortFields = ['serialNumber', 'model', 'version', 'createdAt'] as const
 
