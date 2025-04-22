@@ -51,6 +51,7 @@ import { useMasterTable } from '@/composables/useMasterTable'
 // import type { Language } from '@prisma/client'
 import testModeDialog from '@/components/Dialog.vue'
 
+definePageMeta({ auth: false })
 interface DataInfo {
   code: number,
   id: number,

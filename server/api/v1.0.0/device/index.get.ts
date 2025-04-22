@@ -34,10 +34,15 @@ export default defineEventHandler(async (event) => {
     ...(query.testModeId ? { testModeId: parseInt(query.testModeId as string) } : {}),
   }
 
-//   if (model) where.model = { contains: model, mode: 'insensitive' }
-//   if (version) where.version = { contains: version, mode: 'insensitive' }
-
+  
   const total = await prisma.device.count({ where })
+  if(!total){
+    throw createError({
+      statusCode: 500,
+      statusMessage: "No record found"
+    })
+  }
+  
   const totalPages = Math.max(Math.ceil(total / limit), 1)
   const safePage = Math.min(page, totalPages)
   const skip = (safePage - 1) * limit
@@ -54,6 +59,12 @@ export default defineEventHandler(async (event) => {
       records: { select: { id: true } },
     },
   })
+  if(!devices){
+    throw createError({
+      statusCode: 500,
+      statusMessage: "No record found"
+    })
+  }
 
   return {
     success: true,

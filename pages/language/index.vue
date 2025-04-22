@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <div>
-      <div class="mx-4">
-        <h1>Language Management</h1>
+      <div class="mx-4 ">
+        <span class="font-weight-black">Language Management </span>
       </div>
     
       <div class="d-flex flex-row justify-end mb-3">
@@ -59,6 +59,7 @@ import { useMasterTable } from '@/composables/useMasterTable'
 // import type { Language } from '@prisma/client'
 import LanguageDialog from '@/components/Dialog.vue'
 
+definePageMeta({ auth: false })
 interface Language {
   code: number,
   id: number,

@@ -11,10 +11,13 @@
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn prepend-icon="mdi-login" variant="text" rounded="true" size="small">SignIn</v-btn>
-        <v-btn prepend-icon="mdi-logout" variant="text" rounded="true" size="small">SignOut</v-btn>
+        <v-btn prepend-icon="mdi-login" variant="text" rounded="true" size="small" >SignIn</v-btn>
+        <v-btn prepend-icon="mdi-logout" variant="text" rounded="true" size="small" @click="signOut()">SignOut</v-btn>
       </v-toolbar-items>
       
     </v-toolbar> 
     <slot />
 </template>
+<script setup lang="ts">
+  const {signIn, signOut } = useAuth()
+</script>

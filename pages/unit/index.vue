@@ -63,6 +63,7 @@
     // import type { Language } from '@prisma/client'
     import unitDialog from '@/components/Dialog.vue'
 
+    definePageMeta({ auth: false })
     interface Unit {
       code:number,
       id:number,

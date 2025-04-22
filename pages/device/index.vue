@@ -1,4 +1,7 @@
 <template>
+  <div class="mx-4 mt-2 ">
+      <h2 class="text-h4 font-weight-black text-primary">Device Management </h2>
+  </div>
   <div>
     <!-- ✨ Filter Bar -->
     <v-row class="mt-2 mb-4 ml-2" dense>
@@ -117,6 +120,8 @@
 import { ref, onMounted, watch } from 'vue'
 import { useDeviceTable } from '@/composables/useDeviceTable'
 import { useFetch } from '#app'
+
+definePageMeta({ auth: false })
 
 interface DeviceFilterResponse {
   models: string[]

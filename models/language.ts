@@ -8,8 +8,8 @@ export interface Language {
 
 export function validateLang (body:any) {
     const schema = Joi.object({
-        code: Joi.number().max(255).required(),
-        name: Joi.string().max(15).required()
+        code: Joi.number().max(255).min(0).required(),
+        name: Joi.string().max(50).required()
     })
     return schema.validate(body)
 }
