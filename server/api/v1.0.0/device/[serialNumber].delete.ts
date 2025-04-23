@@ -9,7 +9,6 @@ export default defineEventHandler(async (event: H3Event) => {
   // 🔎 Step 1: ตรวจสอบว่า device นี้มีจริงหรือไม่
   const device = await prisma.device.findUnique({
     where: { serialNumber },
-    // select: { serialNumber: true },
   });
 
   if (!device) {

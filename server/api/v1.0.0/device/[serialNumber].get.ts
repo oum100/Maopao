@@ -1,7 +1,7 @@
-import { defineEventHandler, getQuery, getRouterParam } from 'h3'
+import { H3Event } from "h3";
 import prisma from '~/lib/prisma'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event:H3Event) => {
   const serialNumber = getRouterParam(event, 'serialNumber')
   const query = getQuery(event)
 

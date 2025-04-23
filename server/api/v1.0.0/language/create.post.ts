@@ -1,7 +1,8 @@
+import { H3Event } from 'h3';
 import { validateLang } from '~/models/language'
 import prisma from '~/lib/prisma';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event:H3Event) => {
   const body = await readBody(event)
   const { error } = validateLang(body)
   if(error){

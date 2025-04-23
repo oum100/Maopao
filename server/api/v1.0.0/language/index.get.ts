@@ -1,6 +1,7 @@
+import { H3Event } from 'h3';
 import prisma from '~/lib/prisma';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event:H3Event) => {
   const query = getQuery(event)
 
   const rawPage = parseInt(query.page as string)

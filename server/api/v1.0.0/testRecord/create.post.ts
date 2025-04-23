@@ -5,25 +5,24 @@ import { TestRecord, validateTestRecord } from "@/models/testrecord";
 
 
 export default defineEventHandler(async (event:H3Event) => {
-    const query = await getQuery(event)
-    const recordNumber = parseInt(String(query.recordNumber))
-
     const body = await readBody(event);
-    if(!body){
-        throw createError({
-            statusCode: 500,
-            statusMessage: "Missing body",
-        })        
-    }
 
     const { error } = validateTestRecord(body);
-    let result:string = ''
-
     if (error) {
         throw createError({
             statusCode: 500,
             statusMessage: error.details[0].message,
         }) 
+    }
+
+    const {serialNumber} = body
+
+    const device = await prisma.device.findUnique({
+        where: { serialNumber },
+      });
+    
+    if (!device) {
+    throw createError({ statusCode: 404, statusMessage: "Device not found" });
     }
 
     const data = await prisma.testRecord.create({
@@ -35,7 +34,7 @@ export default defineEventHandler(async (event:H3Event) => {
               connect: { code: parseInt(body.unitId) } // replace with your actual unitId
             },
             device: {
-              connect: { serialNumber: body.serialNumber } // replace with an actual device serialNumber
+              connect: { serialNumber: serialNumber } // replace with an actual device serialNumber
             }
           }        
     });

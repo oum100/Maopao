@@ -1,7 +1,8 @@
+import { H3Event } from 'h3';
 import prisma from '~/lib/prisma';
 import { write } from 'xlsx'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event:H3Event) => {
   const xlsx = await import('xlsx')
   const items = await prisma.testMode.findMany()
 

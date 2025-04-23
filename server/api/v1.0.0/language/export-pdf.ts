@@ -1,8 +1,9 @@
+import { H3Event } from 'h3';
 import prisma from '~/lib/prisma';
 import PDFDocument from 'pdfkit'
 import { PassThrough } from 'stream'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event:H3Event) => {
   const doc = new PDFDocument({ margin: 30, size: 'A4' })
   const stream = new PassThrough()
 
