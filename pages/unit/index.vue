@@ -62,7 +62,7 @@
     import { useMasterTable } from '@/composables/useMasterTable'
     import unitDialog from '@/components/Dialog.vue'
 
-    definePageMeta({ auth: false })
+    definePageMeta({ auth: true })
     interface Unit {
       code:number,
       id:number,

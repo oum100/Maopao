@@ -11,10 +11,10 @@
       <pre v-if="csrfToken"><span>CSRF Token:</span> {{ csrfToken }}</pre>
       <pre v-if="providers"><span>Providers:</span> {{ providers }}</pre>
     </div>
-  </template>
+</template>
   
   <script lang="ts" setup>
-  definePageMeta({ auth: true })
+  definePageMeta({ auth: false })
   const { data, status, getCsrfToken, getProviders } = useAuth()
   
   const providers = await getProviders()

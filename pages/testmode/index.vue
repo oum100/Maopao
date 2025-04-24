@@ -50,7 +50,7 @@
 import { useMasterTable } from '@/composables/useMasterTable'
 import testModeDialog from '@/components/Dialog.vue'
 
-definePageMeta({ auth: false })
+definePageMeta({ auth: true })
 interface DataInfo {
   code: number,
   id: number,

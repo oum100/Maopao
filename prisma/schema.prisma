@@ -16,52 +16,68 @@ datasource db {
 
 model User {
   uuid      String   @id @default(uuid()) // Primary Key
+  name      String
   email     String   @unique
   password  String
   appKey    String
   appSecret String
   device    Device[]
+  profile   Profile?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id            Int      @id @default(autoincrement())
+  owner         User?    @relation(fields: [ownerUuid], references: [uuid])
+  ownerUuid     String?  @unique
+  image         String? 
+  fullName      String?
+  lastName      String?
+  mobile        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Device {
   // id           Int    @id @default(autoincrement())
-  serialNumber String @id @unique
-  model        String
-  version      String
+  serialNumber  String    @id @unique
+  model         String
+  version       String
 
-  owner     User?   @relation(fields: [ownerUuid], references: [uuid])
-  ownerUuid String?
+  owner         User?     @relation(fields: [ownerUuid], references: [uuid])
+  ownerUuid     String?
 
-  language   Language? @relation(fields: [languageId], references: [code])
-  languageId Int? //@default(1) // default language ID = 1
+  language      Language? @relation(fields: [languageId], references: [code])
+  languageId    Int? //@default(1) // default language ID = 1
 
-  unit   Unit? @relation(fields: [unitId], references: [code])
-  unitId Int? //@default(0) // default unit ID = 0
+  unit          Unit?     @relation(fields: [unitId], references: [code])
+  unitId        Int? //@default(0) // default unit ID = 0
 
-  testMode   TestMode? @relation(fields: [testModeId], references: [code])
-  testModeId Int? //@default(1) // default test mode ID = 1
+  testMode      TestMode? @relation(fields: [testModeId], references: [code])
+  testModeId    Int? //@default(1) // default test mode ID = 1
 
-  records   TestRecord[]
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  records       TestRecord[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 }
 
 model TestRecord {
-  id           Int      @id @default(autoincrement())
-  recordNumber Int      @unique
-  alcoholValue Float
-  dateTime     DateTime
+  id              Int      @id @default(autoincrement())
+  recordNumber    Int      @unique
+  alcoholValue    Float
+  dateTime        DateTime
+  pageId          Int?
+  deviceRecId     Int?
 
-  unit   Unit @relation(fields: [unitId], references: [id])
-  unitId Int
+  unit            Unit @relation(fields: [unitId], references: [id])
+  unitId          Int
 
-  device       Device @relation(fields: [serialNumber], references: [serialNumber])
-  serialNumber String
+  device          Device @relation(fields: [serialNumber], references: [serialNumber])
+  serialNumber    String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Language {

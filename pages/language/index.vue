@@ -58,7 +58,7 @@
 import { useMasterTable } from '@/composables/useMasterTable'
 import LanguageDialog from '@/components/Dialog.vue'
 
-definePageMeta({ auth: false })
+definePageMeta({ auth: true })
 interface Language {
   code: number,
   id: number,

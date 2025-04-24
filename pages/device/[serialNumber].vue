@@ -110,7 +110,8 @@ import {
 import type { ChartData, ChartOptions } from 'chart.js'
 import { useTestRecordTable } from '@/composables/useTestRecordTable'
 
-definePageMeta({ auth: false })
+definePageMeta({ auth: true })
+
 ChartJS.register(
   Title,
   Tooltip,

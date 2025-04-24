@@ -1,23 +1,47 @@
 <template>
     <v-toolbar class="text-white" density="compact" image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
       <v-btn icon="mdi-menu"></v-btn>
-      <v-toolbar-title>MaoPao</v-toolbar-title>
-      <!-- <v-spacer></v-spacer> -->
+
+      <v-container class="d-flex align-center">
+        <v-img
+          src="../assets/images/Maopao4-removebg.png"
+          alt="Maopao Logo"
+          max-width="90"
+          class="mr-4"
+        />
+      <!-- <v-toolbar-title>Alcohol Breathalyzer</v-toolbar-title> -->
+    </v-container>
+      <!-- <v-toolbar-title>
+        <v-btn class="text-weight-black" href="/">MAOPAO</v-btn>
+      </v-toolbar-title> -->
+      <!-- <v-toolbar-title class="text-wight-black"><div>MAOPAO</div></v-toolbar-title> -->
+      <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn to="/device" prepend-icon="mdi-cog">Device</v-btn>
-        <v-btn to="/language" prepend-icon="mdi-music-note">Language</v-btn>
-        <v-btn to="/unit" prepend-icon="mdi-book">Unit</v-btn>
-        <v-btn to="/testmode" prepend-icon="mdi-image">TestMode</v-btn>
+        <v-btn to="/device" prepend-icon="mdi-chart-line">Device</v-btn>
+        <v-btn to="/language" prepend-icon="mdi-penguin">Language</v-btn>
+        <v-btn to="/unit" prepend-icon="mdi-cards">Unit</v-btn>
+        <v-btn to="/testmode" prepend-icon="mdi-chair-rolling">TestMode</v-btn>
+        <v-btn to="/test" prepend-icon="mdi-alien">Test</v-btn>
+        <v-btn to="/test" prepend-icon="mdi-account-group">User</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn prepend-icon="mdi-login" variant="text" rounded="true" size="small" >SignIn</v-btn>
-        <v-btn prepend-icon="mdi-logout" variant="text" rounded="true" size="small" @click="signOut()">SignOut</v-btn>
-      </v-toolbar-items>
+      <!-- <v-toolbar-items> -->
+        <div v-if="status === 'authenticated'">
+          <!-- Hello {{ session?.user?.email }}
+          <q-btn @click="signOut()" label="Logout" /> -->
+          <v-btn prepend-icon="mdi-logout" variant="text" @click="signOut()">SignOut</v-btn>
+        </div>
+        <div v-else>
+          <!-- <q-btn @click="signIn('github')" label="Login with GitHub" /> -->
+          <v-btn prepend-icon="mdi-login" variant="text" class="mr-4" to="/auth/signin">SignIn</v-btn>
+        </div>
+      <!-- </v-toolbar-items> -->
       
     </v-toolbar> 
     <slot />
 </template>
 <script setup lang="ts">
-  const {signIn, signOut } = useAuth()
+  const {status,data,signIn, signOut } = useAuth()
+
+  
 </script>

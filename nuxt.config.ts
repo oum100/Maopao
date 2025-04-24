@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
+  ssr:true,
 
   modules: [
     "@sidebase/nuxt-auth",
@@ -27,7 +28,7 @@ export default defineNuxtConfig({
     provider: {
       type: "authjs",
       trustHost: false,
-      defaultProvider: "github",
+      // defaultProvider: "credentials",
       addDefaultCallbackUrl: true,
     },
     globalAppMiddleware: true,

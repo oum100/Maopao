@@ -121,7 +121,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useDeviceTable } from '@/composables/useDeviceTable'
 import { useFetch } from '#app'
 
-definePageMeta({ auth: false })
+definePageMeta({ auth: true })
 
 interface DeviceFilterResponse {
   models: string[]
