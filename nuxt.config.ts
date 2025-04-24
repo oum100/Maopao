@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  ssr:true,
+  ssr: true,
 
   modules: [
     "@sidebase/nuxt-auth",
@@ -23,8 +23,8 @@ export default defineNuxtConfig({
 
   auth: {
     originEnvKey: process.env.AUTH_ORIGIN,
-    baseURL: "http://localhost:3000/api/auth",
-    // baseURL: process.env.AUTH_ORIGIN||'http://localhost:3000',
+    // baseURL: "http://localhost:3000/api/auth",
+    baseURL: process.env.AUTH_BASEURL || "http://localhost:3000/api/auth",
     provider: {
       type: "authjs",
       trustHost: false,
