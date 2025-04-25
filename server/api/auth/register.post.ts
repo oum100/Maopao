@@ -8,8 +8,8 @@ const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwzyzABCDEFGHIGKLM
 
 export default defineEventHandler(async(event:H3Event)=> {
     const body = await readBody(event)
+    console.log(body)
     const {error} = validateNewUser(body)
-
     if(error){
         throw createError({
             statusCode: 500,

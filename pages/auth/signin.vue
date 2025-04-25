@@ -13,17 +13,16 @@
         rounded="lg"
       >
 
-      <v-divider class="my-4">Social Signin</v-divider>
+        <v-divider class="my-4">Social Signin</v-divider>
         <v-sheet class="d-flex justify-center" >
             <div>
                 <v-btn class="mx-4" color="grey-lighten-2" icon="mdi-github" @click="signIn('github')"></v-btn>
                 <v-btn class="mx-4" color="grey-lighten-2" icon="mdi-google" @click="signIn('google')"></v-btn>
             </div>
         </v-sheet>
-
         <v-divider class="my-4"></v-divider>
+
         <div class="text-subtitle-1 text-medium-emphasis">Email</div>
-  
         <v-text-field
           v-model="form.email"
           density="compact"
@@ -65,12 +64,12 @@
         </v-card> -->
 
 
-        <v-btn class="my-4" color="blue" size="large" variant="tonal" block @click="signIn('credentials',form)">Sign In</v-btn>
+        <v-btn class="my-4" color="blue" size="large" variant="tonal" block @click="handleSignin">Sign In</v-btn>
 
         <v-card-text class="text-center">
           <a
             class="text-blue text-decoration-none"
-            href="/auth/register"
+            href="/auth/signup"
             rel="noopener noreferrer"
             target="_self"
           >Sign up now<v-icon icon="mdi-chevron-right"></v-icon>
@@ -88,7 +87,6 @@
 
     const { status, data: session, signIn, signOut } = useAuth()
     const visible = ref(false)
-    const demoCredentials = { email: 'jsmith', password: 'hunter2' }
     const form = ref({
       email:'',
       password: '',
@@ -97,17 +95,23 @@
     })
 
     const rules = {
-    required: (value:string) => !!value || 'Required.',
-    counter: (value:string) => value.length <= 20 || 'Max 20 characters',
-    password:(value:string) => {
-      const pattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,}$/
-      return pattern.test(value) || 'Invalid password'
-    },
-    email: (value:string) => {
-      const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return pattern.test(value) || 'Invalid e-mail.'
-    },
-  }
+      required: (v: string) => !!v || 'Required.',
+      nameLength: (v: string) =>
+        v.length > 1 && v.length <= 30 ,
+      email: (v: string) => {
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return pattern.test(v) || 'Invalid email format'
+      },
+      password: (v: string) => {
+        const pattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,}$/
+        return pattern.test(v) || 'Invalid password format.'
+      }
+    }
 
+    async function handleSignin(){
+      const result = await signIn('credentials',form.value)
+
+      console.log("Login result: ",result)
+    }
 
   </script>

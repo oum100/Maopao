@@ -15,7 +15,7 @@ export default NuxtAuthHandler({
   pages:{
     signIn:'/auth/signin',
     error: '/auth/error',
-    newUser: '/auth/register'
+    newUser: '/auth/signup'
   },
 
   // pages: {
@@ -55,11 +55,7 @@ export default NuxtAuthHandler({
       },
 
       async authorize (credentials: any) {
-        console.warn('ATTENTION: You should replace this with your real providers or credential provider logic! The current setup is not safe')
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // NOTE: THE BELOW LOGIC IS NOT SAFE OR PROPER FOR AUTHENTICATION!
+        console.warn('Authorization in progress')
 
         //Getting user from credential information
         // const user = { id: '1', name: 'J Smith', username: 'jsmith', password: 'hunter2' }
@@ -67,6 +63,7 @@ export default NuxtAuthHandler({
           where: { email: credentials.email }
         })
        
+        //If user not found.
         if(!user){
           throw createError({
             statusCode:401,
@@ -75,13 +72,16 @@ export default NuxtAuthHandler({
         }
 
         //Verify password
-        const isValid = await bcrypt.compare(credentials.password, user.password)
+        const isValid = await bcrypt.compare(credentials.password, user.password!)
+        console.log("isValid: ", isValid)
+        
         if (!isValid) {
           throw createError({
             statusCode: 500,
             statusMessage: "Unauthorized user or Invalid password"
           })
         } 
+        
 
         //Return valid user information
         return {
@@ -97,6 +97,25 @@ export default NuxtAuthHandler({
 
   //Callback
   callbacks:{
+    async signIn({user,account,profile,email,credentials}){
+      //Check type of provider
+      if(account?.provider !== 'credentials'){
+        const socialUser = await prisma.user.findUnique({
+          where:{email:user.email as string}
+        })
+        //Check exiting user
+        if(!socialUser){
+          await prisma.user.create({
+            data:{
+              email: user.email!,
+              name: user.name??'',
+              provider: account?.profider as string ?? 'unknown' 
+            }
+          })
+        }
+      }
+      return true
+    },
     async jwt({token,user,account,profile}){
         // console.log('Token Before: ',token)
         // console.log("Account: ",account)

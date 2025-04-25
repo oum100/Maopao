@@ -1,16 +1,18 @@
 <template>
+  
     <v-toolbar class="text-white" density="compact" image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
+      <v-container class="d-flex justify-start align-center" fluid>
       <v-btn icon="mdi-menu"></v-btn>
 
-      <v-container class="d-flex align-center">
+      
         <v-img
           src="../assets/images/Maopao4-removebg.png"
           alt="Maopao Logo"
-          max-width="90"
-          class="mr-4"
+          max-width="70"
         />
+      <!-- </v-container>   -->
       <!-- <v-toolbar-title>Alcohol Breathalyzer</v-toolbar-title> -->
-    </v-container>
+    
       <!-- <v-toolbar-title>
         <v-btn class="text-weight-black" href="/">MAOPAO</v-btn>
       </v-toolbar-title> -->
@@ -33,11 +35,13 @@
         </div>
         <div v-else>
           <!-- <q-btn @click="signIn('github')" label="Login with GitHub" /> -->
-          <v-btn prepend-icon="mdi-login" variant="text" class="mr-4" to="/auth/signin">SignIn</v-btn>
+          <v-btn prepend-icon="mdi-login" variant="text" to="/auth/signin">SignIn</v-btn>
+          <v-btn prepend-icon="mdi-login" variant="text" to="/auth/signup">Signup</v-btn>
         </div>
       <!-- </v-toolbar-items> -->
-      
+    </v-container> 
     </v-toolbar> 
+  
     <slot />
 </template>
 <script setup lang="ts">

@@ -5,6 +5,7 @@ export interface User {
     name:string,
     email:string,
     password:string,
+    provider:string,
     appKey:string,
     appSecret:string,
     profile:string
@@ -14,9 +15,9 @@ export interface User {
 export function validateNewUser(body:any){
     const schema = Joi.object({
         email: Joi.string().email().required(),
-        name: Joi.string().max(30).required(),
+        name: Joi.string().max(30),
         password: Joi.string().required()
-    })
+    }).unknown(true)
     return schema.validate(body)
 }
 
@@ -28,11 +29,11 @@ export function validateLogin(body:any){
     return schema.validate(body)
 }
 
-export function validateRegister(body:any){
+export async function validateRegister(body:any){
     const schema = Joi.object({
-        name:Joi.string().min(1).max(30).required(),
+        name:Joi.string().min(1).max(30),
         email:Joi.string().email().required(),
-        password:Joi.string().pattern(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).required()
-    })
+        password:Joi.string().required()
+    }).unknown(true)
     return schema.validate(body)
 }

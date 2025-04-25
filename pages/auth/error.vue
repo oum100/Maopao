@@ -1,5 +1,5 @@
 <template>
-  <v-sheet width="500" class="mx-auto mt-8">
+  <!-- <v-sheet width="500" class="mx-auto mt-8">
     <v-alert closable
     title="Authentication Failed"
     text="..."
@@ -8,7 +8,7 @@
     >
     {{ errorCode }}
     </v-alert>
-  </v-sheet>
+  </v-sheet> -->
 
 </template>
 
@@ -21,8 +21,16 @@
   const route = useRoute()
   const router = useRouter()
   const errorCode = computed(() => route.query.error)
+
+  if (typeof errorCode.value === 'string') {
+    push.error(errorCode.value)
+  } else {
+    console.error('Invalid errorCode:', errorCode.value)
+  }
+  router.push('/auth/signin')
+
   const handleCloseAlert = () =>{
-    router.push('/login')
+    router.push('/auth/singin')
   }
 </script>
 

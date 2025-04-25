@@ -16,11 +16,12 @@ datasource db {
 
 model User {
   uuid      String   @id @default(uuid()) // Primary Key
-  name      String
+  name      String?
   email     String   @unique
-  password  String
-  appKey    String
-  appSecret String
+  password  String?
+  provider  String?  @default("credentials") // ← เพิ่มตรงนี้
+  appKey    String?
+  appSecret String?
   device    Device[]
   profile   Profile?
   createdAt DateTime @default(now())
