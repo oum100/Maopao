@@ -49,10 +49,10 @@ export default NuxtAuthHandler({
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        email: { label: 'Email', type: 'text', placeholder: '(hint: jsmith)' },
-        password: { label: 'Password', type: 'password', placeholder: '(hint: hunter2)' }
-      },
+      // credentials: {
+      //   email: { label: 'Email', type: 'text', placeholder: '(hint: jsmith)' },
+      //   password: { label: 'Password', type: 'password', placeholder: '(hint: hunter2)' }
+      // },
 
       async authorize (credentials: any) {
         console.warn('Authorization in progress')
@@ -65,21 +65,23 @@ export default NuxtAuthHandler({
        
         //If user not found.
         if(!user){
-          throw createError({
-            statusCode:401,
-            statusMessage:'User not found'
-          })
+          return null
+          // throw createError({
+          //   statusCode:401,
+          //   statusMessage:'User not found'
+          // })
         }
 
         //Verify password
         const isValid = await bcrypt.compare(credentials.password, user.password!)
-        console.log("isValid: ", isValid)
+        // console.log("isValid: ", isValid)
         
         if (!isValid) {
-          throw createError({
-            statusCode: 500,
-            statusMessage: "Unauthorized user or Invalid password"
-          })
+          return null
+          // throw createError({
+          //   statusCode: 500,
+          //   statusMessage:'Unauthorize user or Invalid password'
+          // })
         } 
         
 

@@ -85,6 +85,7 @@
   })
   
   import { ref } from 'vue'
+  import Swal from 'sweetalert2'
   
   const form = ref({
     name: '',
@@ -126,7 +127,16 @@
     })
 
     if(status.value == "error"){
-      push.error(error.value?.statusMessage as string)
+      // push.error(error.value?.statusMessage as string)
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed',
+        text: error.value?.statusMessage ,
+        timer: 2000,
+        showConfirmButton: false,
+        position: 'top',
+      })
+
       throw createError({
         statusCode:500,
         statusMessage:error.value?.statusMessage
@@ -134,8 +144,18 @@
     }
 
 
-    push.success("Registration success")
-    router.push('/auth/signin')
+    Swal.fire({
+      icon: 'success',
+      title: `Welcome ${form.value.name}`,
+      text: 'Please check your email for confirmation.',
+      // timer: 3000,
+      showConfirmButton: true,
+      position: 'top',
+      customClass: {
+        confirmButton: 'text-white bg-green-600',
+      }
+    })
+    router.push('/')
     // console.log('✅ Valid form:', form.value)
     // alert('🎉 Registration complete!')
   }

@@ -31,7 +31,7 @@
         <div v-if="status === 'authenticated'">
           <!-- Hello {{ session?.user?.email }}
           <q-btn @click="signOut()" label="Logout" /> -->
-          <v-btn prepend-icon="mdi-logout" variant="text" @click="signOut()">SignOut</v-btn>
+          <v-btn prepend-icon="mdi-logout" variant="text" @click="signOut({ callbackUrl: '/' })">SignOut</v-btn>
         </div>
         <div v-else>
           <!-- <q-btn @click="signIn('github')" label="Login with GitHub" /> -->

@@ -9,12 +9,6 @@ export default defineNuxtConfig({
     "@prisma/nuxt",
     "@pinia/nuxt",
     "vuetify-nuxt-module",
-    "notivue/nuxt"
-  ],
-
-  css:[
-    'notivue/notification.css',
-    'notivue/animations.css'
   ],
 
   // notivue:{ //option },

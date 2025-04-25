@@ -14,6 +14,7 @@
 
 
 <script setup lang="ts">
+  import Swal from 'sweetalert2'
   definePageMeta({
     auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/' },
   })
@@ -23,11 +24,18 @@
   const errorCode = computed(() => route.query.error)
 
   if (typeof errorCode.value === 'string') {
-    push.error(errorCode.value)
+    // push.error(errorCode.value)
+    Swal.fire({
+      icon: 'error',
+      title: 'Authentication Failed',
+      text: errorCode.value,
+      timer: 2000,
+      showConfirmButton: false,
+      position: 'top',
+    })
   } else {
     console.error('Invalid errorCode:', errorCode.value)
   }
-  router.push('/auth/signin')
 
   const handleCloseAlert = () =>{
     router.push('/auth/singin')
