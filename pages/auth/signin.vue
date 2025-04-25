@@ -175,7 +175,7 @@
       email: form.value.email,
       password: form.value.password,
       redirect: false,
-      // callbackUrl: '/device', // or any page after login
+      callbackUrl: '/device', // or any page after login
     })
 
     loading.value = false
