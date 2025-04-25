@@ -36,7 +36,7 @@ export default defineEventHandler(async(event:H3Event)=> {
         uuid: uuid,
         name: body.name || undefined,
         email: body.email,
-        password: await bcrypt.hash(body.password, bcrypt.genSaltSync(16)),
+        password: await bcrypt.hash(body.password, bcrypt.genSaltSync(10)),
         appKey: reverseUuid(uuid),
         appSecret:nanoid(25),
         createdAt: nowDateTime,
