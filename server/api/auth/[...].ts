@@ -67,8 +67,8 @@ export default NuxtAuthHandler({
         if(!user) return null
         
         //Verify password
-        const isValid =  await bcrypt.compare(credentials.password, user.password!)
-        if (!isValid) return null
+        // const isValid =  await bcrypt.compare(credentials.password, user.password!)
+        // if (!isValid) return null
        
 
         //Return valid user information
