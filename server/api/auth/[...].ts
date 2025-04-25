@@ -55,7 +55,7 @@ export default NuxtAuthHandler({
       // },
 
       async authorize (credentials: any) {
-        console.warn('Authorization in progress')
+        // console.warn('Authorization in progress')
 
         //Getting user from credential information
         // const user = { id: '1', name: 'J Smith', username: 'jsmith', password: 'hunter2' }
@@ -64,31 +64,17 @@ export default NuxtAuthHandler({
         })
        
         //If user not found.
-        if(!user){
-          return null
-          // throw createError({
-          //   statusCode:401,
-          //   statusMessage:'User not found'
-          // })
-        }
-
+        if(!user) return null
+        
         //Verify password
-        const isValid = await bcrypt.compare(credentials.password, user.password!)
-        // console.log("isValid: ", isValid)
-        
-        if (!isValid) {
-          return null
-          // throw createError({
-          //   statusCode: 500,
-          //   statusMessage:'Unauthorize user or Invalid password'
-          // })
-        } 
-        
+        const isValid =  await bcrypt.compare(credentials.password, user.password!)
+        if (!isValid) return null
+       
 
         //Return valid user information
         return {
-          ...user,
-          password:undefined
+          uuid: user.uuid,
+          email: user.email
         }
       }
     })

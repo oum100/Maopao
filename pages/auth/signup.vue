@@ -20,6 +20,7 @@
             density="compact"
             :rules="[rules.required, rules.nameLength]"
             hint="Name must be 2–30 characters"
+            clearable
           />
   
           <!-- Email -->
@@ -33,6 +34,7 @@
             type="email"
             :rules="[rules.required, rules.email]"
             hint="abc@example.com"
+            clearable
           />
   
           <!-- Password -->
@@ -48,6 +50,7 @@
             density="compact"
             :rules="[rules.required, rules.password]"
             hint="8+ chars, 1 uppercase, 1 number, 1 special char."
+            clearable
           />
   
           <!-- ปุ่ม -->

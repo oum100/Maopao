@@ -6,8 +6,8 @@
           <v-btn block class="mb-2" @click="login('github')">Login with GitHub</v-btn>
           <v-btn block class="mb-4" @click="login('google')">Login with Google</v-btn>
   
-          <v-text-field v-model="email" label="Email" />
-          <v-text-field v-model="password" type="password" label="Password" />
+          <v-text-field v-model="email" label="Email" clearable/>
+          <v-text-field v-model="password" type="password" label="Password" clearable/>
           <v-btn block class="mt-2" @click="submit">Login</v-btn>
           <v-btn text @click="$router.push('/auth/forgot')">Forgot Password?</v-btn>
         </v-card-text>

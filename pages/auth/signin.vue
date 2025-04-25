@@ -31,6 +31,7 @@
             prepend-inner-icon="mdi-email-outline"
             variant="outlined"
             :rules="[rules.required,rules.email]"
+            clearable
           ></v-text-field>
     
           <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
@@ -56,6 +57,7 @@
             :rules="[rules.required, rules.password]"
             hint="8+ chars, 1 uppercase, 1 number, 1 special char."
             @click:append-inner="visible = !visible"
+            clearable
           ></v-text-field>
     
           <!-- <v-card class="mb-4" color="surface-variant" variant="tonal">
