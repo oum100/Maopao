@@ -66,9 +66,9 @@ export default NuxtAuthHandler({
         //If user not found.
         if(!user) return null
         
-        //Verify password
-        // const isValid =  await bcrypt.compare(credentials.password, user.password!)
-        // if (!isValid) return null
+        //Verify password.......Vercel slow for this compare
+        const isValid =  await bcrypt.compare(credentials.password, user.password!)
+        if (!isValid) return null
        
 
         //Return valid user information
