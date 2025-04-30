@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  // output   = "./server/generated/prisma"
+  output   = "./server/generated/prisma"
 }
 
 datasource db {
@@ -22,7 +22,7 @@ model User {
   provider  String?  @default("credentials") // ← เพิ่มตรงนี้
   appKey    String?
   appSecret String?
-  device    Device[]
+  devices    Device[]
   profile   Profile?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -43,6 +43,7 @@ model Profile {
 model Device {
   // id           Int    @id @default(autoincrement())
   serialNumber  String    @id @unique
+  // macAddress    String    @unique
   model         String
   version       String
 

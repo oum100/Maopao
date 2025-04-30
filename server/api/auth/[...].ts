@@ -86,21 +86,29 @@ export default NuxtAuthHandler({
   //Callback
   callbacks:{
     async signIn({user,account,profile,email,credentials}){
+
       //Check type of provider
       if(account?.provider !== 'credentials'){
+        if (!account || !profile?.email) return false
+
+        const email = profile?.email
+        console.log("user",email)
+
         const socialUser = await prisma.user.findUnique({
-          where:{email:user.email as string}
+          where:{email}
         })
         //Check exiting user
-        if(!socialUser){
-          await prisma.user.create({
-            data:{
-              email: user.email!,
-              name: user.name??'',
-              provider: account?.profider as string ?? 'unknown' 
-            }
-          })
-        }
+        // if(!socialUser){
+        //   console.log("Creating socialUser",socialUser)
+        //   await prisma.user.create({
+        //     data:{
+        //       email: email,
+        //       name: profile.name??'',
+        //       provider: account?.profider as string ?? 'unknown' 
+        //     }
+        //   })
+        //   return false
+        // }
       }
       return true
     },

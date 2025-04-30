@@ -1,6 +1,6 @@
 <template>
   <div class="mx-4 mt-2 ">
-      <h2 class="text-h4 font-weight-black text-primary">Device Management </h2>
+      <h2 class="text-h5 font-weight-bold text-primary font-noto-sans">Device Management </h2>
   </div>
   <div>
     <!-- ✨ Filter Bar -->

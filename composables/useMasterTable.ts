@@ -10,21 +10,21 @@ interface MasterTableResponse<T> {
     }
   }
   
-export const useMasterTable = <T>(resource: 'language' | 'unit' | 'testMode') => {
+export const useMasterTable = <T>(resource: 'language' | 'unit' | 'testMode' |'user') => {
     const page = ref(1)
     const pageSize = ref(10)
     const nameFilter = ref('')
 
     type SortOrder = 'asc' | 'desc'
     type SortItem = { key: string; order?: SortOrder }
-    const sortBy = ref<SortItem[]>([{ key: 'createdAt', order: 'desc' }])
+    const sortBy = ref<SortItem[]>([{ key: 'updatedAt', order: 'desc' }])
     
     const { data, pending, refresh } = useFetch<MasterTableResponse<T>>(`/api/v1.0.0/${resource}`, {
         query: () => ({
         page: page.value,
         pageSize: pageSize.value,
         name: nameFilter.value,
-        sort: sortBy.value[0]?.key || 'createdAt',
+        sort: sortBy.value[0]?.key || 'updatedAt',
         order: sortBy.value[0]?.order || 'desc',
         }),
     })
@@ -36,7 +36,7 @@ export const useMasterTable = <T>(resource: 'language' | 'unit' | 'testMode') =>
         window.open(`/api/v1.0.0/${resource}/export`, '_blank')
     }
 
-    const deleteItem = async (code: number) => {
+    const deleteItem = async (code: number | string) => {
         await $fetch(`/api/v1.0.0/${resource}/${code}`, { method: 'DELETE' })
         await refresh()
     }

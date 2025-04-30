@@ -13,10 +13,10 @@ export default defineEventHandler(async (event:H3Event) => {
   const name = (query.name as string)?.trim() || ''
   const where:any = name ? { name: { contains: name, mode: 'insensitive' } } : {}
 
-  const allowedSortFields = ['code', 'name', 'createdAt'] // ปรับตามจริง
-  const sortRaw = (query.sort as string)?.trim() || 'createdAt'
+  const allowedSortFields = ['code', 'name', 'createdAt','updatedAt'] // ปรับตามจริง
+  const sortRaw = (query.sort as string)?.trim() || 'createdAt' || 'updatedAt'
   const directionRaw = (query.order as string)?.trim()?.toLowerCase() === 'asc' ? 'asc' : 'desc'
-  const sortField = allowedSortFields.includes(sortRaw) ? sortRaw : 'createdAt'
+  const sortField = allowedSortFields.includes(sortRaw) ? sortRaw : 'updatedAt'
   const orderBy = { [sortField]: directionRaw } as Record<string, 'asc' | 'desc'>
   
 

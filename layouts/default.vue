@@ -24,7 +24,7 @@
         <v-btn to="/unit" prepend-icon="mdi-cards">Unit</v-btn>
         <v-btn to="/testmode" prepend-icon="mdi-chair-rolling">TestMode</v-btn>
         <v-btn to="/test" prepend-icon="mdi-alien">Test</v-btn>
-        <v-btn to="/test" prepend-icon="mdi-account-group">User</v-btn>
+        <v-btn to="/user" prepend-icon="mdi-account-group">User</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <!-- <v-toolbar-items> -->

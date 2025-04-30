@@ -16,7 +16,7 @@
 <script setup lang="ts">
   import Swal from 'sweetalert2'
   definePageMeta({
-    auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/' },
+    auth: { unauthenticatedOnly: false, navigateAuthenticatedTo: '/' },
   })
 
   const route = useRoute()
@@ -24,7 +24,7 @@
   const errorCode = computed(() => route.query.error)
 
   if (typeof errorCode.value === 'string') {
-    // push.error(errorCode.value)
+  
     Swal.fire({
       icon: 'error',
       title: 'Authentication Failed',
