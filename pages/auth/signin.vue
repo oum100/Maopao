@@ -17,6 +17,13 @@
             <div>
                 <v-btn class="mx-4" color="grey-lighten-2" icon="mdi-github" @click="signIn('github')"></v-btn>
                 <v-btn class="mx-4" color="grey-lighten-2" icon="mdi-google" @click="signIn('google')"></v-btn>
+                <v-btn class="mx-4" color="grey-lighten-2" icon @click="signIn('line')">  <v-img
+                  src="/line-icon.svg"
+                  width="30"
+                  height="30"
+                  cover
+                  />
+                </v-btn>
             </div>
         </v-sheet>
         <v-divider class="my-4"></v-divider>

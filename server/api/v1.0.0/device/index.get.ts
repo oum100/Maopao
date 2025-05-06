@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
   if(!total){
     throw createError({
       statusCode: 500,
-      statusMessage: "No record found"
+      statusMessage: "No record found 0"
     })
   }
   
@@ -59,10 +59,11 @@ export default defineEventHandler(async (event) => {
       records: { select: { id: true } },
     },
   })
+
   if(!devices){
     throw createError({
       statusCode: 500,
-      statusMessage: "No record found"
+      statusMessage: "No record found 1"
     })
   }
 

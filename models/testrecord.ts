@@ -10,7 +10,8 @@ export interface TestRecord {
 
 export function validateTestRecord(body: any) {
   const schema = Joi.object({
-    serialNumber: Joi.string().max(15).required(),
+    serialNumber: Joi.string().max(15),
+    macAddress:Joi.string(),
     recordNumber: Joi.number().required(),
     alcoholValue: Joi.number().required(),
     dateTime: Joi.date().required(),

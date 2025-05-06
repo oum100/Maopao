@@ -14,7 +14,8 @@ export interface Device {
 
 export function validateDevice(body:any) {
     const schema = Joi.object({
-        serialNumber: Joi.string().required(),
+        serialNumber: Joi.string(),
+        macAddress: Joi.string(),
         model: Joi.string().required().default('H3'),
         version: Joi.string().required(),
         uuid: Joi.number().max(255),
@@ -23,6 +24,19 @@ export function validateDevice(body:any) {
         testMode: Joi.number().max(255).default(1),
         records:Joi.array().items(Joi.number()),
     })
+    .or('serialNumber', 'macAddress')
+    .unknown(true)
+    return schema.validate(body)
+}
+
+export function validateDeviceRegister(body:any) {
+    const schema = Joi.object({
+        serialNumber: Joi.string(),
+        macAddress: Joi.string(),
+        userUuid: Joi.string().required()
+    })
+    .xor('serialNumber', 'macAddress')
+    .unknown(true)
     return schema.validate(body)
 }
 

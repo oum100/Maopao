@@ -7,6 +7,7 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6"><strong>Model:</strong> {{ device?.model }}</v-col>
+          <v-col cols="12" sm="6"><strong>Mac:</strong> {{ device?.macAddress }}</v-col>
           <v-col cols="12" sm="6"><strong>Version:</strong> {{ device?.version }}</v-col>
           <v-col cols="12" sm="6"><strong>Unit:</strong> {{ device?.unit?.name }}</v-col>
           <v-col cols="12" sm="6"><strong>Language:</strong> {{ device?.language?.name }}</v-col>
@@ -240,6 +241,8 @@ onMounted(async () => {
   const res = await fetch(`/api/v1.0.0/device/${serialNumber}`)
   const data = await res.json()
   device.value = data.device
+
+  console.log("device",device.value)
 })
 </script>
 

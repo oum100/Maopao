@@ -31,8 +31,10 @@ export default defineEventHandler(async (event: H3Event) => {
   const created = await prisma.device.create({
     data: {
       serialNumber: body.serialNumber as string,
-      model: body.model as string,
-      version: body.version as string,
+      macAddress: body.macAddress as string,
+      model: body.model as string || '',
+      version: body.version as string || '',
+      status: body.status || 'INSTOCK',
       language: {
         connect: { code: parseInt(body.language) },
       },

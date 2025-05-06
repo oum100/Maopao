@@ -34,26 +34,29 @@ export function useDeviceTable() {
       pagination: { total: number };
     }
 
-    const { data, error } = await useFetch<DeviceResponse>("/api/v1.0.0/device", {
-      params: {
-        page: page.value,
-        limit: itemsPerPage.value,
-        // sort: sortBy.value[0]?.key || 'createdAt',
-        sort: sortParam,
-        order: sortBy.value[0]?.order || 'desc',
-        model: filters.value.model,
-        version: filters.value.version,
-        unitId: filters.value.unitId,
-        testModeId: filters.value.testModeId,
-      },
-    });
+    try{
+      const  data  = await $fetch("/api/v1.0.0/device", {
+        params: {
+          page: page.value,
+          limit: itemsPerPage.value,
+          // sort: sortBy.value[0]?.key || 'createdAt',
+          sort: sortParam,
+          order: sortBy.value[0]?.order || 'desc',
+          model: filters.value.model,
+          version: filters.value.version,
+          unitId: filters.value.unitId,
+          testModeId: filters.value.testModeId,
+        },
+      });
 
-    if (data.value) {
-      items.value = data.value.data;
-      total.value = data.value.pagination.total;
+      if (data) {
+        items.value = data.data;
+        total.value = data.pagination.total;
+      }
+      loading.value = false;
+    }catch{
+      loading.value = false;
     }
-
-    loading.value = false;
   }
 
   function exportToCSV() {

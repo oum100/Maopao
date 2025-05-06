@@ -17,7 +17,7 @@ export const useMasterTable = <T>(resource: 'language' | 'unit' | 'testMode' |'u
 
     type SortOrder = 'asc' | 'desc'
     type SortItem = { key: string; order?: SortOrder }
-    const sortBy = ref<SortItem[]>([{ key: 'updatedAt', order: 'desc' }])
+    const sortBy = ref<SortItem[]>([{ key: 'updatedAt', order: 'asc' }])
     
     const { data, pending, refresh } = useFetch<MasterTableResponse<T>>(`/api/v1.0.0/${resource}`, {
         query: () => ({

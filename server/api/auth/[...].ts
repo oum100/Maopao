@@ -1,6 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
+import LineProvider from "next-auth/providers/line"
 import { NuxtAuthHandler } from '#auth'
 import prisma from '~/lib/prisma'
 import {User} from '@/models/user'
@@ -40,6 +41,31 @@ export default NuxtAuthHandler({
       clientId: process.env.GOOGLE_CLIENT_ID || 'enter-your-client-id-here',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'enter-your-client-secret-here'
     }),
+    
+   
+    // @ts-expect-error
+    LineProvider.default({
+        clientId: process.env.LINE_CLIENT_ID!,
+        clientSecret: process.env.LINE_CLIENT_SECRET!,
+
+        issuer: 'https://access.line.me',
+        wellKnown: 'https://access.line.me/.well-known/openid-configuration',
+        authorization: {
+          params: {
+            scope: 'openid profile email',
+            prompt: 'consent'
+          }
+        },
+        idToken: true,
+        profile(profile:any) {
+          return {
+            id: profile.sub,
+            name: profile.name ?? profile.nickname,
+            email: profile.email,
+            image: profile.picture
+          }
+        }            
+    }),   
 
     // @ts-expect-error
     CredentialsProvider.default({

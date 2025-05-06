@@ -30,14 +30,14 @@ export default defineEventHandler(async(event:H3Event)=> {
   
     const nowDateTime = new Date()
     const uuid = nanoid(10)
-    const reverseUuid = (s:string):string => {return [...s].reverse().join("")}
+    // const reverseUuid = (s:string):string => {return [...s].reverse().join("")}
     
     const data = {
-        uuid: uuid,
+        // uuid: uuid,
         name: body.name || undefined,
         email: body.email,
         password: await bcrypt.hash(body.password, bcrypt.genSaltSync(10)),
-        appKey: reverseUuid(uuid),
+        appKey: uuid,
         appSecret:nanoid(25),
         createdAt: nowDateTime,
         updatedAt: nowDateTime

@@ -1,12 +1,12 @@
 <template>
-  
+    <!-- <v-toolbar class="text-white bg-blue" density="compact" > -->
     <v-toolbar class="text-white" density="compact" image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
       <v-container class="d-flex justify-start align-center" fluid>
       <v-btn icon="mdi-menu"></v-btn>
 
       
         <v-img
-          src="../assets/images/Maopao4-removebg.png"
+          src="/Maopao4-removebg.png"
           alt="Maopao Logo"
           max-width="70"
         />
@@ -36,7 +36,7 @@
         <div v-else>
           <!-- <q-btn @click="signIn('github')" label="Login with GitHub" /> -->
           <v-btn prepend-icon="mdi-login" variant="text" to="/auth/signin">SignIn</v-btn>
-          <v-btn prepend-icon="mdi-login" variant="text" to="/auth/signup">Signup</v-btn>
+          <!-- <v-btn prepend-icon="mdi-login" variant="text" to="/auth/signup">Signup</v-btn> -->
         </div>
       <!-- </v-toolbar-items> -->
     </v-container> 

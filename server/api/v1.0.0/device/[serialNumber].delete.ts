@@ -1,3 +1,4 @@
+import { TestRecord } from '@/models/testrecord';
 import { H3Event } from "h3";
 // import prisma from "@/server/utils/prisma";
 import prisma from "~/lib/prisma"
@@ -9,6 +10,9 @@ export default defineEventHandler(async (event: H3Event) => {
   // 🔎 Step 1: ตรวจสอบว่า device นี้มีจริงหรือไม่
   const device = await prisma.device.findUnique({
     where: { serialNumber },
+    include:{
+      _count:{select:{records:true}}
+    }
   });
 
   if (!device) {
@@ -16,15 +20,10 @@ export default defineEventHandler(async (event: H3Event) => {
   }
 
   // 🔒 Step 2: ตรวจสอบว่ามี TestRecord หรือไม่
-  const hasTestRecord = await prisma.testRecord.findFirst({
-    where: { serialNumber },
-    select: { id: true },
-  });
-
-  if (hasTestRecord) {
+  if (device._count.records > 0 ) {
     throw createError({
       statusCode: 400,
-      statusMessage: "Cannot delete device with TestRecord",
+      statusMessage: "Cannot delete device with test data",
     });
   }
 

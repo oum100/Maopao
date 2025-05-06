@@ -15,15 +15,31 @@ export default defineEventHandler(async (event:H3Event) => {
         }) 
     }
 
-    const {serialNumber} = body
-
-    const device = await prisma.device.findUnique({
+    const {serialNumber,macAddress} = body
+    let deviceId = ''
+    
+    if(serialNumber){
+      const device = await prisma.device.findUnique({
         where: { serialNumber },
       });
-    
-    if (!device) {
-    throw createError({ statusCode: 404, statusMessage: "Device not found" });
+
+      if (!device) {
+        throw createError({ statusCode: 404, statusMessage: "Device not found" });
+      }
+      
+      deviceId = device.id
+    }else if(macAddress){
+      const device = await prisma.device.findUnique({
+        where: {macAddress}
+      })
+
+      if (!device) {
+        throw createError({ statusCode: 404, statusMessage: "Device not found" });
+      }
+
+      deviceId = device.id
     }
+
 
     const data = await prisma.testRecord.create({
         data: {
@@ -34,7 +50,8 @@ export default defineEventHandler(async (event:H3Event) => {
               connect: { code: parseInt(body.unitId) } // replace with your actual unitId
             },
             device: {
-              connect: { serialNumber: serialNumber } // replace with an actual device serialNumber
+              // connect: { serialNumber: serialNumber } // replace with an actual device serialNumber
+              connect:{id: deviceId}
             }
           }        
     });

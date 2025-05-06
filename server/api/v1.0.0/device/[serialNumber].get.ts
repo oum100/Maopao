@@ -5,6 +5,26 @@ export default defineEventHandler(async (event:H3Event) => {
   const serialNumber = getRouterParam(event, 'serialNumber')
   const query = getQuery(event)
 
+  // 📦 Device info
+  const device = await prisma.device.findUnique({
+    where: { serialNumber },
+    include: {
+      unit: true,
+      language: true,
+      testMode: true,
+    },
+  })
+
+  if(!device){
+    throw createError({
+      statusCode: 404,
+      message: 'Device not found', 
+    })
+  }
+
+  // const filter: any = { serialNumber }
+  const filter:any = {deviceId:device?.id}
+ 
   // 🔢 Pagination
   const rawPage = parseInt(query.page as string)
   const rawLimit = parseInt(query.limit as string)
@@ -23,8 +43,6 @@ export default defineEventHandler(async (event:H3Event) => {
   const startDate = query.startDate ? new Date(query.startDate as string) : undefined
   const endDate = query.endDate ? new Date(query.endDate as string) : undefined
 
-  const filter: any = { serialNumber }
-
   // 📊 Alcohol Range Filter
   const alcoholFilter: Record<string, number> = {}
   if (!isNaN(min)) alcoholFilter.gte = min
@@ -40,18 +58,10 @@ export default defineEventHandler(async (event:H3Event) => {
     if (endDate) filter.dateTime.lte = endDate
   }
 
-  // 📦 Device info
-  const device = await prisma.device.findUnique({
-    where: { serialNumber },
-    include: {
-      unit: true,
-      language: true,
-      testMode: true,
-    },
-  })
 
   // 📥 Count total
   const total = await prisma.testRecord.count({ where: filter })
+ 
 
   // 📄 Load records
   const records = await prisma.testRecord.findMany({

@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./server/generated/prisma"
+  // output   = "./server/generated/prisma"
 }
 
 datasource db {
@@ -41,23 +41,27 @@ model Profile {
 }
 
 model Device {
-  // id           Int    @id @default(autoincrement())
-  serialNumber  String    @id @unique
-  // macAddress    String    @unique
-  model         String
-  version       String
+  id            String      @id @default(uuid())
+  serialNumber  String?     @unique
+  macAddress    String?     @unique
+ 
+  model         String?
+  version       String?
 
-  owner         User?     @relation(fields: [ownerUuid], references: [uuid])
+  status        DeviceStatus?   @default(INSTOCK)
+
+  owner         User?           @relation(fields: [ownerUuid], references: [uuid])
   ownerUuid     String?
 
-  language      Language? @relation(fields: [languageId], references: [code])
-  languageId    Int? //@default(1) // default language ID = 1
+  language      Language?       @relation(fields: [languageId], references: [code])
+  languageId    Int?            @default(1) // default language ID = 1
 
-  unit          Unit?     @relation(fields: [unitId], references: [code])
-  unitId        Int? //@default(0) // default unit ID = 0
+  unit          Unit?           @relation(fields: [unitId], references: [code])
+  unitId        Int?            @default(0) // default unit ID = 0
 
-  testMode      TestMode? @relation(fields: [testModeId], references: [code])
-  testModeId    Int? //@default(1) // default test mode ID = 1
+  testMode      TestMode?       @relation(fields: [testModeId], references: [code])
+  testModeId    Int?            @default(1) // default test mode ID = 1
+
 
   records       TestRecord[]
   createdAt     DateTime     @default(now())
@@ -75,8 +79,8 @@ model TestRecord {
   unit            Unit @relation(fields: [unitId], references: [id])
   unitId          Int
 
-  device          Device @relation(fields: [serialNumber], references: [serialNumber])
-  serialNumber    String
+  device          Device @relation(fields: [deviceId], references: [id])
+  deviceId        String
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -109,4 +113,10 @@ model TestMode {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum DeviceStatus {
+  INSTOCK
+  ACTIVATED
+  REGISTERED
 }

@@ -1,14 +1,13 @@
 # MaoPao Project
 
-MaoPao is dashboard for Alcohol meter device.   
-
+MaoPao is dashboard for Alcohol meter device.
 
 # Tech Stack
- - Nuxt 3
- - Vuetify 3
- - Bun
- - TypeScript
 
+- Nuxt 3
+- Vuetify 3
+- Bun
+- TypeScript
 
 # Nuxt Minimal Starter
 
@@ -85,4 +84,11 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
 # Maopao
+
+#Reference Document
+
+- BLE Terminal on MacOS: https://docs.google.com/document/d/1zHdwjaUcK5CsIviSwhvU2XGYz5DwqSQDwGIWOEEVRKc/edit?usp=sharing
+
+- Connecting H3 via bluetooth: https://docs.google.com/document/d/1sp2huI2hXX4Bm0MoBfSXZL6O6MHRsZ6DzoRNBfwG9fE/edit?usp=sharing
